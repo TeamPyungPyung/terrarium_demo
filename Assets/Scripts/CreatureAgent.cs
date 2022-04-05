@@ -249,7 +249,7 @@ public class CreatureAgent : Agent
 
     private GameObject FirstAdjacent(string tag)
     {
-        var colliders = Physics.OverlapSphere(transform.position, 1.2f * Size);
+        var colliders = Physics.OverlapSphere(transform.position, 1.2f);
         foreach (var collider in colliders)
         {
             if (collider.gameObject.tag == tag)
