@@ -1,6 +1,6 @@
 # Unity_mlagent_Terrarium_demo
 
-unity version - 2020.3.28f1
+unity version - 2020.3.32f1
 
 mlagent release19 를 사용했습니다. 거기 installation을 참고해주세요.
 
