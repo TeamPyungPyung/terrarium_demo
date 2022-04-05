@@ -16,7 +16,7 @@ public class EnvController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        
+
     }
 
     public void ReproduceHerbivore()
@@ -27,7 +27,7 @@ public class EnvController : MonoBehaviour
     public void DeadHerbivore()
     {
         m_NumberOfHerbivores--;
-        if(m_NumberOfHerbivores == 0)
+        if (m_NumberOfHerbivores == 0)
         {
             Debug.Log("no chicken now");
             // reset need.
@@ -36,7 +36,7 @@ public class EnvController : MonoBehaviour
 
     public bool isNoHerbivore()
     {
-        if(m_NumberOfHerbivores == 0)
+        if (m_NumberOfHerbivores == 0)
         {
             return true;
         }
