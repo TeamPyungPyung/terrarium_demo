@@ -225,7 +225,7 @@ public class CreatureAgent : Agent
 
     void TransformSize()
     {
-        transform.localScale = Vector3.one * Mathf.Pow(Size, 0.5f);
+        transform.localScale = Vector3.one * Mathf.Pow(Size, 0.2f);
     }
 
     bool CanGrow
