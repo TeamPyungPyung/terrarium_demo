@@ -22,6 +22,8 @@ public class CreatureAgent : Agent
     public float GrowthRate;
     public float EatingSpeed;
     public float MaxSpeed;
+    public float moveSpeed = 5f;
+    public float turnSpeed = 180f;
     public float AttackDamage;
     public float DefendDamage;
     public float Eyesight;
@@ -103,33 +105,24 @@ public class CreatureAgent : Agent
 
     public override void OnActionReceived(ActionBuffers actions)
     {
+        // Actions
+        // 0. Movement, 1. Eat,    2. Reproduce,
+        // 3. Attack,   4. Defend, 5. MoveForward, 6. Rotate
 
-        //0 Move, 1 Eat, 2 Reproduce, 3 Attack, 4 Defend, 5 moveforward?, 6 rotate
+        // 5. MoveForward
+        float forwardAmount = actions.DiscreteActions[5];
 
-        if (actions.DiscreteActions[0] > .5f)
+        // 6. Rotate
+        float turnAmount = 0f;
+        if (actions.DiscreteActions[6] == 1f)
         {
-            // move
-            float forwardAmount = actions.DiscreteActions[5];
-            if (forwardAmount > .5f)
-            {
-                transform.position += transform.forward;
-            }
-
-            float turnAmount = 0f;
-            if (actions.DiscreteActions[6] == 1f)
-            {
-                turnAmount = -1f;   //left
-            }
-            else if (actions.DiscreteActions[6] == 2f)
-            {
-                turnAmount = 1f;    //right
-            }
-            transform.Rotate(transform.up * turnAmount * Time.fixedDeltaTime * MaxSpeed * 100);
-            currentAction = "Moving";
-            nextAction = Time.timeSinceLevelLoad + (25 / MaxSpeed);
-
-
+            turnAmount = -1f;  // Left
         }
+        else if (actions.DiscreteActions[6] == 2f)
+        {
+            turnAmount = 1f;  // Right
+        }
+
         else if (actions.DiscreteActions[1] > .5f)
         {
             Eat();
@@ -138,9 +131,14 @@ public class CreatureAgent : Agent
         {
             Reproduce();
         }
-        // attack, defend later;
+        // TODO: Attack, defend later;
 
+        // Apply movement
+        agentRB.MovePosition(transform.position + transform.forward * forwardAmount * MaxSpeed * Time.fixedDeltaTime);
+        transform.Rotate(transform.up * turnAmount * Time.fixedDeltaTime * turnSpeed);
 
+        currentAction = "Moving";
+        nextAction = Time.timeSinceLevelLoad + (25 / MaxSpeed);
     }
     void Start()
     {
