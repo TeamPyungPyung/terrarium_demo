@@ -74,7 +74,7 @@ public class CreatureAgent : Agent
 
         //need?
         Initialize();
-        
+
     }
 
     public override void Initialize()
@@ -110,17 +110,17 @@ public class CreatureAgent : Agent
         {
             // move
             float forwardAmount = actions.DiscreteActions[5];
-            if(forwardAmount > .5f)
+            if (forwardAmount > .5f)
             {
                 transform.position += transform.forward;
             }
 
             float turnAmount = 0f;
-            if(actions.DiscreteActions[6] == 1f)
+            if (actions.DiscreteActions[6] == 1f)
             {
                 turnAmount = -1f;   //left
             }
-            else if(actions.DiscreteActions[6] == 2f)
+            else if (actions.DiscreteActions[6] == 2f)
             {
                 turnAmount = 1f;    //right
             }
@@ -128,7 +128,7 @@ public class CreatureAgent : Agent
             currentAction = "Moving";
             nextAction = Time.timeSinceLevelLoad + (25 / MaxSpeed);
 
-           
+
         }
         else if (actions.DiscreteActions[1] > .5f)
         {
@@ -139,13 +139,13 @@ public class CreatureAgent : Agent
             Reproduce();
         }
         // attack, defend later;
-               
-        
+
+
     }
     void Start()
     {
         EnvController = env.GetComponent<EnvController>();
-        
+
         EnvController.ReproduceHerbivore();
         OnEpisodeBegin();
     }
@@ -166,7 +166,7 @@ public class CreatureAgent : Agent
             gameObject.SetActive(false);
             return;
         }
-        if (Buried)
+        if (false && Buried)
         {
             //Debug.Log("buried");
             died = true;
@@ -192,7 +192,7 @@ public class CreatureAgent : Agent
         }
 
         if (CanGrow) Grow();
-        Age += AgeRate;
+        // Age += AgeRate;
 
     }
 
@@ -316,10 +316,10 @@ public class CreatureAgent : Agent
 
     public void Eat()
     {
-        
+
         if (CreatureType == CreatureType.Herbivore)
         {
-           
+
             var adj = FirstAdjacent("Plant");
             if (adj != null)
             {
@@ -341,7 +341,7 @@ public class CreatureAgent : Agent
         int forwardAction = 0;
         int turnAction = 0;
 
-        if(Input.GetKey(KeyCode.UpArrow))
+        if (Input.GetKey(KeyCode.UpArrow))
         {
             //Debug.Log("up");
             actionsOut.DiscreteActions.Array[0] = 1;
@@ -368,13 +368,13 @@ public class CreatureAgent : Agent
             actionsOut.DiscreteActions.Array[2] = 1;
         }
 
-        
+
         actionsOut.DiscreteActions.Array[5] = forwardAction;
         actionsOut.DiscreteActions.Array[6] = turnAction;
     }
 
     public void MonitorLog()
     {
-        
+
     }
 }
